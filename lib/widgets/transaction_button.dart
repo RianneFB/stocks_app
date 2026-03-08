@@ -1,5 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:dio/dio.dart';
+import 'package:stocks/models/stock.dart';
 import 'package:stocks/utils/app_colors.dart';
 
 class TransactionButton extends StatelessWidget {

@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    'assets/images/avatar1.png',
+                    '',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -42,7 +42,7 @@ class CustomAppBar extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Chidi Onyedinma",
+                    "Rianne Fobissie Blese",
                     style: TextStyle(
                       color: AppColors.primaryText,
                       fontWeight: FontWeight.w500,

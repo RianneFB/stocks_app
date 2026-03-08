@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stocks/screens/home_screen.dart';
 import 'package:stocks/utils/app_colors.dart';
+import 'package:get/get.dart';
+import '';
 
 void main() {
   runApp(const MainApp());

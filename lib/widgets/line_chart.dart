@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:stocks/models/stock.dart';
 import 'package:stocks/utils/app_colors.dart';
+import 'package:stocks/utils/utilities.dart';
 
 class StockDisplay extends StatefulWidget {
   const StockDisplay({
     super.key,
     required this.name,
     required this.symbol,
-    this.price = "\$523.13",
-    this.growth = "+12%",
-    this.isUp = true,
+    required this.data,
+    //this.price = "\$523.13",
+    //this.growth = "+12%",
+    //this.isUp = true,
   });
 
   final String name;
   final String symbol;
-  final String price;
-  final String growth;
-  final bool isUp;
+  final AlphaVantageDailyResponse data;
+  //final String price;
+  //final String growth;
+  //final bool isUp;
 
   @override
   State<StockDisplay> createState() => _StockDisplayState();
@@ -73,7 +77,7 @@ class _StockDisplayState extends State<StockDisplay> {
               spacing: 5,
               children: [
                 Text(
-                  widget.price,
+                  widget.data.bars.first.close.toString(),
                   style: TextStyle(
                     color: AppColors.primaryText,
                     fontSize: 15,
@@ -81,7 +85,9 @@ class _StockDisplayState extends State<StockDisplay> {
                   ),
                 ),
                 Text(
-                  widget.growth,
+                  Utilities.calculatePriceChange(widget.data.bars.first).$2
+                    ? "+${Utilities.calculatePriceChange(widget.data.bars.first).$1.toStringAsFixed(2)}%"
+                    : "-${Utilities.calculatePriceChange(widget.data.bars.first).$1.toStringAsFixed(2)}%",
                   style: TextStyle(
                     color: AppColors.primaryText,
                     fontSize: 15,
@@ -129,7 +135,7 @@ class _StockDisplayState extends State<StockDisplay> {
           ],
           isCurved: true,
           gradient: LinearGradient(
-            colors: widget.isUp
+            colors: Utilities.calculatePriceChange(widget.data.bars.first).$2
                 ? [
                     ColorTween(
                       begin: gradientColors[0],
@@ -157,7 +163,7 @@ class _StockDisplayState extends State<StockDisplay> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: widget.isUp
+              colors: Utilities.calculatePriceChange(widget.data.bars.first).$2
                   ? [
                       ColorTween(
                         begin: gradientColors[0].withAlpha(50),
@@ -186,23 +192,23 @@ class _StockDisplayState extends State<StockDisplay> {
   }
 }
 
-class StockDisplayRow extends StatelessWidget {
-  const StockDisplayRow({super.key});
+//class StockDisplayRow extends StatelessWidget {
+//  const StockDisplayRow({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Row(
-        spacing: 5,
-        children: [
-          StockDisplay(name: "Apple", symbol: "AAPL", isUp: true),
+ // @override
+  //Widget build(BuildContext context) {
+  //  return SingleChildScrollView(
+  //    scrollDirection: Axis.vertical,
+ //     child: Row(
+  //      spacing: 5,
+  //      children: [
+ //         StockDisplay(name: "Apple", symbol: "AAPL", isUp: true),
 
-          StockDisplay(name: "Apple", symbol: "AAPL", isUp: true),
+  //        StockDisplay(name: "Apple", symbol: "AAPL", isUp: true),
 
-          StockDisplay(name: "Apple", symbol: "AAPL", isUp: true),
-        ],
-      ),
-    );
-  }
-}
+  //        StockDisplay(name: "Apple", symbol: "AAPL", isUp: true),
+//        ],
+ //     ),
+ //   );
+//  }
+//}
